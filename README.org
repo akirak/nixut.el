@@ -1,11 +1,13 @@
 * nixut.el
-This Emacs package is a collection of utilities which was initially imported from [[https://github.com/akirak/melpa-check/][melpa-check]].
-
 #+BEGIN_HTML
 <a href="https://github.com/akirak/nixut.el/actions">
 <img src="https://github.com/akirak/nixut.el/workflows/nixut%20CI/badge.svg" alt="CI status">
 </a>
 #+END_HTML
+
+This Emacs package is a collection of utilities which was initially imported from [[https://github.com/akirak/melpa-check/][melpa-check]].
+
+It currently contains trivial functions related to JSON, processes, and Nix.
 ** Table of contents
 :PROPERTIES:
 :TOC: siblings
@@ -18,6 +20,10 @@ This Emacs package is a collection of utilities which was initially imported fro
 This package is not available on MELPA yet.
 ** Usage
 Simply require =nixut= and use individual functions as needed.
+** Also see
+- [[https://github.com/alphapapa/unpackaged.el][unpackaged.el]]
+- [[https://github.com/alphapapa/elexandria][elexandria]]
+- [[https://github.com/alphapapa/emacs-package-dev-handbook][emacs-package-dev-handbook]]
 ** License
 GPL v3
 ** COMMENT Meta :noexport:
