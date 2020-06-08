@@ -36,6 +36,14 @@
 (require 'cl-lib)
 (require 'json)
 
+;;;; Functions for internal use
+(defsubst nixut-remove-prop (prop plist)
+  "Destructively delete a pair of PROP from PLIST."
+  (if (cl-find prop plist)
+      (append (nreverse (cdr (member prop (nreverse (copy-sequence plist)))))
+              (cddr (member prop plist)))
+    plist))
+
 ;;;; Macros
 (defmacro nixut-with-json-types (&rest progn)
   "Evaluate PROGN with json types set.
@@ -89,7 +97,8 @@ which is a buffer.
 You can also pass ARGS to the command.
 
 If the process does not exit with zero, it throws an error."
-  (let ((result (apply #'call-process cmd nil destination nil args)))
+  (let* ((args (nixut-remove-prop :destination args))
+         (result (apply #'call-process cmd nil destination nil args)))
     (unless (= 0 result)
       (error "Abnormal exit %s from \"%s\""
              result
