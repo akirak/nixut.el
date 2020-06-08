@@ -51,10 +51,12 @@
 
   (describe "nixut-read-json-file"
     (it "reads a JSON file"
-      (expect (let ((filename (make-temp-file "nixut-test-sample" nil ".json"
-                                              "{\"key\":\"hello\"}")))
+      (expect (let ((filename (make-temp-file "nixut-test-sample" nil ".json")))
                 (unwind-protect
-                    (nixut-json-read-file filename)
+                    (progn
+                      (with-temp-file filename
+                        (insert "{\"key\":\"hello\"}"))
+                      (nixut-json-read-file filename))
                   (delete-file filename)))
               :to-equal '((key . "hello"))))))
 
@@ -96,10 +98,13 @@
 
 (describe "nixut-sha1-file"
   (it "returns the sha1 sum of a file"
-    (let ((file (make-temp-file "nixut-test-sample" nil ".txt" "hello good bye")))
+    (let ((file (make-temp-file "nixut-test-sample" nil ".txt")))
       (unwind-protect
-          (expect (string-prefix-p (nixut-sha1-file file)
-                                   (nixut-read-process "sha1sum" file)))
+          (progn
+            (with-temp-file file
+              (insert "hello good bye"))
+            (expect (string-prefix-p (nixut-sha1-file file)
+                                     (nixut-read-process "sha1sum" file))))
         (delete-file file)))))
 
 (describe "Nix"
