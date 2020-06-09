@@ -11,10 +11,11 @@ in  [ Package::{
       , files = [ "nixut.el" ]
       , dependencies = [] : List Text
       , testDrivers = [ TestDriver.buttercup ]
-      , testExcludes = [ "**/test-helper?(s).el" ]
+      , buttercupTests = [ "test/nixut-test.el" ]
       , recipe =
           ''
-          (nixut :fetcher github :repo "akirak/nixut.el")
+          (nixut :fetcher github :repo "akirak/nixut.el"
+            :files ("nixut.el"))
           ''
       }
     ]
